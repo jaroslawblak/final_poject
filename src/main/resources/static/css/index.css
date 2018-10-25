@@ -1,0 +1,11 @@
+.banner{
+    border-color: brown;
+    border-width: 5px;
+    width: 80%;
+    height: 50%;
+    background-color: aqua;
+}
+
+h2 {
+    color: #2211aa;
+}
