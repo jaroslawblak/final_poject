@@ -1,6 +1,8 @@
 package com.blak.model;
 
-import org.springframework.transaction.annotation.Transactional;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
     @Column(name = "ID")
@@ -41,11 +44,11 @@ public class User {
     @JoinColumn(name = "ParentID")
     private User parentUser;
 
-    @OneToMany(mappedBy = "parentUser")
+    @OneToMany(mappedBy = "parentUser",fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<User> users;
 
-    @OneToMany(mappedBy = "user")
-    @Transient
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<UserResources> userResources;
 
 
