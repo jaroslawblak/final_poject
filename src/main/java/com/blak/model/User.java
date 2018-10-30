@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = User.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
     @Column(name = "ID")
@@ -45,7 +45,6 @@ public class User {
     private User parentUser;
 
     @OneToMany(mappedBy = "parentUser",fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<User> users;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)

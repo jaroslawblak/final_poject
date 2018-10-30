@@ -1,11 +1,15 @@
 package com.blak.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "place")
+@JsonIdentityInfo(scope = Place.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Place {
 
     @Id

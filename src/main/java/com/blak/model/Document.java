@@ -1,11 +1,15 @@
 package com.blak.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 
 @Entity
 @Table(name = "document")
+@JsonIdentityInfo(scope = Document.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Document {
 
     @Id

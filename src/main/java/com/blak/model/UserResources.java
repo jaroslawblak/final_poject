@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user2res")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = UserResources.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserResources {
 
     @Column(name = "ID")
@@ -54,7 +54,6 @@ public class UserResources {
     private UserResources parentUserResources;
 
     @OneToMany(mappedBy = "parentUserResources")
-    @Transient
     private List<UserResources> userResources;
 
     public UserResources() {
@@ -177,7 +176,6 @@ public class UserResources {
     public void setUserResources(UserResources parentUserResources) {
         this.parentUserResources = parentUserResources;
     }
-
 
     @Override
     public String toString() {

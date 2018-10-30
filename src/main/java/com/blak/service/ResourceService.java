@@ -1,11 +1,11 @@
-package com.blak.dao;
+package com.blak.service;
 
 import com.blak.model.Place;
 import com.blak.model.Resource;
 
 import java.util.List;
 
-public interface ResourceDAO {
+public interface ResourceService {
 
     public Resource getResource(int id);
     public void saveResource(Resource resource);
