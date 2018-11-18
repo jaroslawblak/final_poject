@@ -31,6 +31,8 @@ public class Resource {
     @Column(name = "ExternalID")
     private String externalId;
 
+    private boolean onLoan;
+
     @ManyToOne (cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "PlaceID",nullable = false)
     private Place place;
@@ -146,6 +148,14 @@ public class Resource {
 
     public void setParentId(Resource parentResource) {
         this.parentResource = parentResource;
+    }
+
+    public boolean isOnLoan() {
+        return onLoan;
+    }
+
+    public void setOnLoan(boolean onLoan) {
+        this.onLoan = onLoan;
     }
 
     @Override

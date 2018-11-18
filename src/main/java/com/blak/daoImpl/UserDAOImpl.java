@@ -49,5 +49,15 @@ public class UserDAOImpl implements UserDAO {
         return users;
     }
 
+    @Override
+    public User getUser(String email) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<User> theQuery = currentSession.createQuery
+                ("from User where User.email = :email", User.class)
+                .setParameter("email", email);
+        User user = theQuery.getSingleResult();
+        return user;
+    }
+
 
 }

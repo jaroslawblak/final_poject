@@ -10,6 +10,7 @@ public interface UserService {
     public void saveUser(User user);
     public boolean deleteUser(int id);
     public  List<User> getUsers();
+    public User getUser(String email);
 
 
 }
