@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
+
 public class RestUserController {
 
     @Autowired
@@ -33,6 +35,15 @@ public class RestUserController {
         }
         return user;
     }
+
+//    @GetMapping("/users/{id}")
+//    public User getUserByName(@PathVariable String name) {
+//        User user = userService.getUser(id);
+//        if (user == null) {
+//            throw new UserNotFoundException("User not found - " + id);
+//        }
+//        return user;
+//    }
 
     @PostMapping("/users")
     public void saveUser(@RequestBody User user) {

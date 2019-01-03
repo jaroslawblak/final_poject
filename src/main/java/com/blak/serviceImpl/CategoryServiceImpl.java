@@ -1,8 +1,8 @@
 package com.blak.serviceImpl;
 
 import com.blak.dao.CategoryDAO;
+import com.blak.dao.ResourceCategoryDAO;
 import com.blak.model.Category;
-import com.blak.model.Resource;
 import com.blak.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryDAO categoryDAO;
+
+    @Autowired
+    private ResourceCategoryDAO resourceCategoryDAO;
+
 
     @Override
     @Transactional
@@ -36,8 +40,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public List<Category> findCategoryByResource(Resource resource) {
-        return categoryDAO.findCategoryByResource(resource);
+    public List<Category> findCategoryByResource(int id) {
+
+        return categoryDAO.findCategoryByResource(id);
     }
 
     @Override
@@ -45,4 +50,18 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getCategories() {
         return categoryDAO.getCategories();
     }
+
+    @Override
+    @Transactional
+    public List<Category> getCategoriesOfResource(int id) {
+        return resourceCategoryDAO.getCategoriesOfResource(id);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoriesForResource(int id, List<Integer> categoryIds) {
+        resourceCategoryDAO.updateCategoriesForResource(id, categoryIds);
+    }
+
+
 }

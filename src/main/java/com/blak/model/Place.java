@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "place")
-@JsonIdentityInfo(scope = Place.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Place {
 
     @Id
@@ -25,10 +24,11 @@ public class Place {
     @JoinColumn(name = "ParentID")
     private Place parentPlace;
 
-    @OneToMany(mappedBy = "place", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "place", fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private List<Resource> resources;
 
-    @OneToMany(mappedBy = "parentPlace")
+    @OneToMany(mappedBy = "parentPlace", fetch = FetchType.LAZY)
     private List<Place> places;
 
     public Place() {

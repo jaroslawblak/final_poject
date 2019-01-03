@@ -2,12 +2,12 @@ package com.blak.controllers;
 
 
 import com.blak.model.User;
-import com.blak.service.UserService;
+import com.blak.security.MyUserPrincipal;
+import com.blak.security.UserDetailsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -17,12 +17,22 @@ import java.util.Base64;
 @CrossOrigin
 public class RestLoginController {
 
+    Logger LOGGER = LoggerFactory.getLogger(RestLoginController.class);
+
     @Autowired
-    private UserService userService;
+    private UserDetailsService userDetailsService;
 
     @RequestMapping("/login")
-    public boolean login(@RequestBody User user) {
-        return user.getEmail().equals("user") && user.getPassword().equals("password");
+    public User login(@RequestBody User user) {
+        try {
+            MyUserPrincipal myUserPrincipal = (MyUserPrincipal) userDetailsService.loadUserByUsername(user.getEmail());
+            if(myUserPrincipal.getPassword().equals(user.getPassword())) {
+                return myUserPrincipal.getUser();
+            }
+        }catch (Exception exc){
+            return null;
+        }
+        return null;
     }
 
     @RequestMapping("/user")

@@ -2,11 +2,12 @@ package com.blak.daoImpl;
 
 import com.blak.dao.UserResourcesDAO;
 import com.blak.model.Resource;
-import com.blak.model.User;
 import com.blak.model.UserResources;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Repository
 public class UserResourcesDAOImpl implements UserResourcesDAO {
 
+    Logger LOGGER = LoggerFactory.getLogger(UserResourcesDAO.class);
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -52,10 +54,12 @@ public class UserResourcesDAOImpl implements UserResourcesDAO {
     }
 
     @Override
-    public List<UserResources> findUserResourcesByUser(User user) {
+    public List<UserResources> findUserResourcesByUserId(int userId) {
         Session currentSession = sessionFactory.getCurrentSession();
-        Query<UserResources> theQuery = currentSession.createQuery("from UserResources where UserResources.user.id = :id", UserResources.class).setParameter("id",user.getId());
+
+        Query<UserResources> theQuery = currentSession.createQuery("select ur from UserResources ur join ur.user u where u.id = :id", UserResources.class).setParameter("id", userId);
         List<UserResources> usersResources = ((org.hibernate.query.Query) theQuery).getResultList();
+        LOGGER.info(String.valueOf(usersResources));
         return usersResources;
     }
 

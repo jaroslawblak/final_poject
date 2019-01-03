@@ -3,9 +3,9 @@ package com.blak.daoImpl;
 import com.blak.dao.PlaceDAO;
 import com.blak.model.Place;
 import com.blak.model.Resource;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -46,7 +46,7 @@ public class PlaceDAOImpl implements PlaceDAO {
     @Override
     public List<Place> findPlaceByResource(Resource resource) {
         Session currentSession = sessionFactory.getCurrentSession();
-        Query<Place> theQuery = currentSession.createQuery("from Place where Place.id = :id", Place.class).setParameter("id",resource.getPlaceId());
+        org.hibernate.query.Query theQuery<Place> theQuery = currentSession.createQuery("from Place where Place.id = :id", Place.class).setParameter("id",resource.getPlaceId());
         List<Place> places = ((org.hibernate.query.Query) theQuery).getResultList();
         return places;
     }
@@ -54,7 +54,7 @@ public class PlaceDAOImpl implements PlaceDAO {
     @Override
     public List<Place> getPlaces() {
         Session currentSession = sessionFactory.getCurrentSession();
-        Query<Place> theQuery = currentSession.createQuery("from Place ", Place.class);
+        org.hibernate.query.Query<Place> theQuery = currentSession.createQuery("from Place ", Place.class);
         List<Place> places = ((org.hibernate.query.Query) theQuery).getResultList();
         return places;
     }

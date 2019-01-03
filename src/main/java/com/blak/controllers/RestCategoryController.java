@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class RestCategoryController {
 
     @Autowired
@@ -31,10 +32,24 @@ public class RestCategoryController {
         return category;
     }
 
+    @GetMapping("/categories/res/{id}")
+    public List<Category> getCategoriesForResource(@PathVariable int id) {
+        List<Category> categories = categoryService.getCategoriesOfResource(id);
+        if (categories == null) {
+            //throw new UserNotFoundException("User not found - " + id);
+        }
+        return categories;
+    }
+
     @PostMapping("/categories")
     public void saveCategory(@RequestBody Category category) {
         category.setId(0);
         categoryService.saveCategory(category);
+    }
+
+    @PostMapping("/categories/res/{id}")
+    public void saveCategory(@PathVariable int id, @RequestBody List<Integer> categoryIds) {
+        categoryService.updateCategoriesForResource(id, categoryIds);
     }
 
     @PutMapping("/categories")

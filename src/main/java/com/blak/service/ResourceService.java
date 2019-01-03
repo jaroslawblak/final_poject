@@ -12,4 +12,5 @@ public interface ResourceService {
     public boolean deleteResource(int id);
     public List<Resource> findResourceByPlace(Place place);
     public List<Resource> getResources();
+    public List<Resource> getChildResources(int id);
 }

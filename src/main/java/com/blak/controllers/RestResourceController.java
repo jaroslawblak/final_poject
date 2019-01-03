@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class RestResourceController {
 
     @Autowired
@@ -16,6 +17,12 @@ public class RestResourceController {
     @GetMapping("/resources")
     public List<Resource> getResources() {
         List<Resource> resources = resourceService.getResources();
+        return resources;
+    }
+
+    @GetMapping("/resources/{id}/child")
+    public List<Resource> getChildResources(@PathVariable int id) {
+        List<Resource> resources = resourceService.getChildResources(id);
         return resources;
     }
 
@@ -33,6 +40,8 @@ public class RestResourceController {
 
     @PutMapping("/resources")
     public void updateResource(@RequestBody Resource resource) {
+        System.out.println("BUG ");
+        System.out.println("res: " + resource);
         resourceService.saveResource(resource);
     }
 

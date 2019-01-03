@@ -28,18 +28,18 @@ public class ResourceOfResource {
     @Column(name = "Type", nullable = false)
     private int type;
 
-    @ManyToOne (cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "ChildID",nullable = false)
-    private ResourceOfResource childResourceOfResource;
+    private Resource childResourceOfResource;
 
     @ManyToOne (cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "ParentID",nullable = false)
-    private ResourceOfResource parentResourceOfResource;
+    private Resource parentResourceOfResource;
 
     public ResourceOfResource() {
     }
 
-    public ResourceOfResource(LocalDate addTime, int state, int type, ResourceOfResource childResourceOfResource, ResourceOfResource parentResourceOfResource) {
+    public ResourceOfResource(LocalDate addTime, int state, int type, Resource childResourceOfResource, Resource parentResourceOfResource) {
         this.addTime = addTime;
         this.state = state;
         this.type = type;
@@ -87,19 +87,19 @@ public class ResourceOfResource {
         this.type = type;
     }
 
-    public ResourceOfResource getChildResourceOfResource() {
+    public Resource getChildResourceOfResource() {
         return childResourceOfResource;
     }
 
-    public void setChildResourceOfResource(ResourceOfResource childResourceOfResource) {
+    public void setChildResourceOfResource(Resource childResourceOfResource) {
         this.childResourceOfResource = childResourceOfResource;
     }
 
-    public ResourceOfResource getParentResourceOfResource() {
+    public Resource getParentResourceOfResource() {
         return parentResourceOfResource;
     }
 
-    public void setParentResourceOfResource(ResourceOfResource parentResourceOfResource) {
+    public void setParentResourceOfResource(Resource parentResourceOfResource) {
         this.parentResourceOfResource = parentResourceOfResource;
     }
 

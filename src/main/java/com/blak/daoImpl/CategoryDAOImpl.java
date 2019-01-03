@@ -2,7 +2,7 @@ package com.blak.daoImpl;
 
 import com.blak.dao.CategoryDAO;
 import com.blak.model.Category;
-import com.blak.model.Resource;
+import com.blak.model.ResourceOfResource;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -35,19 +35,19 @@ public class CategoryDAOImpl implements CategoryDAO {
         Session currentSession = sessionFactory.getCurrentSession();
         Category category = currentSession.get(Category.class, id);
         currentSession.delete(category);
-        if(currentSession.get(Category.class, id) == null){
+        if (currentSession.get(Category.class, id) == null) {
             return true;
-        }else {
-            return false;
         }
+        return false;
     }
 
     @Override
-    public List<Category> findCategoryByResource(Resource resource) {
+    public List<Category> findCategoryByResource(int id) {
         Session currentSession = sessionFactory.getCurrentSession();
-        Query<Category> theQuery = currentSession.createQuery("from Category where Category.id = :id", Category.class).setParameter("id",resource.getId());
-        List<Category> categories = ((org.hibernate.query.Query) theQuery).getResultList();
-        return categories;
+        Query<Category> theQuery = currentSession.createQuery(
+                "FROM Category AS c JOIN ResourceCategory AS r ON c.id = r.categoryId WHERE r.resourceId = :id");
+        List<Category> categories = ((org.hibernate.query.Query) theQuery).list();
+        return null;
     }
 
     @Override

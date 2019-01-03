@@ -1,8 +1,6 @@
 package com.blak.serviceImpl;
 
 import com.blak.dao.UserResourcesDAO;
-import com.blak.model.Resource;
-import com.blak.model.User;
 import com.blak.model.UserResources;
 import com.blak.service.UserResourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,14 +41,8 @@ public class UserResourcesServiceImpl implements UserResourcesService {
 
     @Override
     @Transactional
-    public List<UserResources> findUserResourcesByUser(User user) {
-        return userResourcesDAO.findUserResourcesByUser(user);
-    }
-
-    @Override
-    @Transactional
-    public List<UserResources> findUserResourcesByResource(Resource resource) {
-        return userResourcesDAO.findUserResourcesByResource(resource);
+    public List<UserResources> findUserResourcesByUserId(int userId) {
+        return userResourcesDAO.findUserResourcesByUserId(userId);
     }
 }
 

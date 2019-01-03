@@ -1,6 +1,7 @@
 package com.blak.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -53,7 +54,7 @@ public class UserResources {
     @JoinColumn(name = "ParentID")
     private UserResources parentUserResources;
 
-    @OneToMany(mappedBy = "parentUserResources")
+    @OneToMany(mappedBy = "parentUserResources", fetch = FetchType.LAZY)
     private List<UserResources> userResources;
 
     public UserResources() {

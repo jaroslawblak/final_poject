@@ -1,7 +1,6 @@
 package com.blak.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,7 +8,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "resource")
-@JsonIdentityInfo(scope = Resource.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Resource {
 
     @Column(name = "ID")
@@ -31,14 +29,14 @@ public class Resource {
     @Column(name = "ExternalID")
     private String externalId;
 
-    private boolean onLoan;
-
-    @ManyToOne (cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @JoinColumn(name = "PlaceID",nullable = false)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "PlaceID", nullable = false)
+    @JsonIgnore
     private Place place;
 
-    @ManyToOne (cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "ParentID")
+    @JsonIgnore
     private Resource parentResource;
 
     @OneToMany(mappedBy = "resourceId", fetch = FetchType.LAZY)
@@ -56,18 +54,17 @@ public class Resource {
     @OneToMany(mappedBy = "parentResourceOfResource", fetch = FetchType.LAZY)
     private List<ResourceOfResource> parentResourceOfResource;
 
-    @OneToMany(mappedBy = "parentResource")
+    @OneToMany(mappedBy = "parentResource", fetch = FetchType.LAZY)
     private List<Resource> resources;
 
     public Resource() {
     }
 
-    public Resource(String name, int type, int state, LocalDate addTime, Place placeId) {
+    public Resource(String name, int type, int state, LocalDate addTime) {
         this.name = name;
         this.type = type;
         this.state = state;
         this.addTime = addTime;
-        this.place = placeId;
     }
 
     public int getId() {
@@ -150,14 +147,6 @@ public class Resource {
         this.parentResource = parentResource;
     }
 
-    public boolean isOnLoan() {
-        return onLoan;
-    }
-
-    public void setOnLoan(boolean onLoan) {
-        this.onLoan = onLoan;
-    }
-
     @Override
     public String toString() {
         return "Resource{" +
@@ -168,7 +157,6 @@ public class Resource {
                 ", state=" + state +
                 ", addTime=" + addTime +
                 ", delTime=" + delTime +
-                ", placeId=" + place +
                 ", externalId='" + externalId + '\'' +
                 ", parentResource=" + parentResource +
                 '}';

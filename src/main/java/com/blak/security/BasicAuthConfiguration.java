@@ -23,6 +23,7 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
                 auth.authenticationProvider(authenticationProvider());
     }
 
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider
@@ -40,13 +41,13 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http)
             throws Exception {
         http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/main").hasAnyRole()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and()
+//                .authorizeRequests()
+//                .antMatchers("/login").permitAll()
+//                .antMatchers("/main").hasAnyRole()
+//                .antMatchers("/admin").hasRole("ADMIN")
+//                .anyRequest()
+//                .authenticated()
+//                .and()
                 .httpBasic();
     }
 }

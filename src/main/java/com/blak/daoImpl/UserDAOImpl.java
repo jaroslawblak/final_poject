@@ -5,6 +5,8 @@ import com.blak.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @Repository
 public class UserDAOImpl implements UserDAO {
 
+    Logger LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -34,9 +37,9 @@ public class UserDAOImpl implements UserDAO {
         Session currentSession = sessionFactory.getCurrentSession();
         User user = currentSession.get(User.class, id);
         currentSession.delete(user);
-        if(currentSession.get(User.class, id) == null){
+        if (currentSession.get(User.class, id) == null) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -52,11 +55,16 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getUser(String email) {
         Session currentSession = sessionFactory.getCurrentSession();
-        Query<User> theQuery = currentSession.createQuery
-                ("from User where User.email = :email", User.class)
-                .setParameter("email", email);
-        User user = theQuery.getSingleResult();
-        return user;
+        try {
+            User user = currentSession.createQuery
+                    ("from User us where us.email = :email", User.class)
+                    .setParameter("email", email).uniqueResult();
+            return user;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            ex.getMessage();
+            return null;
+        }
     }
 
 

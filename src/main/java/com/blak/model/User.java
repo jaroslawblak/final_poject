@@ -39,6 +39,8 @@ public class User {
     private String note;
     @Column(name = "AuthKey", nullable = false)
     private String authKey;
+    @Column(name = "Role")
+    private String role;
 
     @ManyToOne (cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "ParentID")
@@ -47,9 +49,9 @@ public class User {
     @OneToMany(mappedBy = "parentUser",fetch = FetchType.LAZY)
     private List<User> users;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<UserResources> userResources;
-
 
     public User() {
     }
@@ -119,6 +121,14 @@ public class User {
         return state;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public void setState(int state) {
         this.state = state;
     }
@@ -186,8 +196,8 @@ public class User {
                 ", delTime=" + delTime +
                 ", note='" + note + '\'' +
                 ", authKey='" + authKey + '\'' +
+                ", role='" + role + '\'' +
                 ", parentUser=" + parentUser +
-                ", userResources=" + userResources +
                 '}';
     }
 }

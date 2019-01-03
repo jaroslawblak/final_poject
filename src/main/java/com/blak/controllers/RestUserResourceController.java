@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class RestUserResourceController {
 
     @Autowired
@@ -26,6 +27,12 @@ public class RestUserResourceController {
         return userResources;
     }
 
+    @GetMapping("/usersResources/user/{id}")
+    public List<UserResources> getUserResourceByUser(@PathVariable int id) {
+        List<UserResources> userResources = userResourcesService.findUserResourcesByUserId(id);
+        return userResources;
+    }
+
     @PostMapping("/usersResources")
     public void saveUserResource(@RequestBody UserResources userResources) {
         userResources.setId(0);
@@ -33,12 +40,12 @@ public class RestUserResourceController {
     }
 
     @PutMapping("/usersResources")
-    public void updateUser(@RequestBody UserResources userResources) {
+    public void updateUserResource(@RequestBody UserResources userResources) {
         userResourcesService.saveUserResource(userResources);
     }
 
     @DeleteMapping("/usersResources/{id}")
-    public void deleteUser(@PathVariable int id) {
+    public void deleteUserResource(@PathVariable int id) {
         UserResources userResources = userResourcesService.getUserResource(id);
         if (userResources == null) {
             throw new UserNotFoundException("User not found - " + id);
