@@ -1,6 +1,6 @@
 package com.blak.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,21 +22,21 @@ public class Resource {
     private int type;
     @Column(name = "State", nullable = false)
     private int state;
-    @Column(name = "AddTime", nullable = false)
+    @Column(name = "AddTime", nullable = false, columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate addTime;
-    @Column(name = "DelTime")
+    @Column(name = "DelTime", columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate delTime;
     @Column(name = "ExternalID")
     private String externalId;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "PlaceID", nullable = false)
-    @JsonIgnore
     private Place place;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "ParentID")
-    @JsonIgnore
     private Resource parentResource;
 
     @OneToMany(mappedBy = "resourceId", fetch = FetchType.LAZY)
@@ -142,7 +142,6 @@ public class Resource {
     public Resource getParentId() {
         return parentResource;
     }
-
     public void setParentId(Resource parentResource) {
         this.parentResource = parentResource;
     }
@@ -155,10 +154,9 @@ public class Resource {
                 ", description='" + description + '\'' +
                 ", type=" + type +
                 ", state=" + state +
-                ", addTime=" + addTime +
-                ", delTime=" + delTime +
+
                 ", externalId='" + externalId + '\'' +
-                ", parentResource=" + parentResource +
+                ", parentResource=" + parentResource.getId() +
                 '}';
     }
 }

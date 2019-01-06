@@ -1,8 +1,7 @@
 package com.blak.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,7 +11,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@JsonIdentityInfo(scope = User.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
     @Column(name = "ID")
@@ -31,9 +29,11 @@ public class User {
     private int type;
     @Column(name = "State", nullable = false)
     private int state;
-    @Column(name = "AddTime", nullable = false)
+    @Column(name = "AddTime", nullable = false, columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate addTime;
-    @Column(name = "DelTime")
+    @Column(name = "DelTime", columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate delTime;
     @Column(name = "Note")
     private String note;

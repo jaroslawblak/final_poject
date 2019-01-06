@@ -1,8 +1,7 @@
 package com.blak.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "user2res")
-@JsonIdentityInfo(scope = UserResources.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserResources {
 
     @Column(name = "ID")
@@ -24,19 +22,23 @@ public class UserResources {
     @Column(name = "State", nullable = false)
     private int state;
 
-    @Column(name = "AddTime", nullable = false)
+    @Column(name = "AddTime", nullable = false, columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate addTime;
 
-    @Column(name = "DelTime")
+    @Column(name = "DelTime", columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate delTime;
 
     @Column(name = "Priority")
     private Integer priority;
 
-    @Column(name = "DateFrom")
+    @Column(name = "DateFrom", columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFrom;
 
-    @Column(name = "DateTo")
+    @Column(name = "DateTo", columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateTo;
 
     @Column(name = "Note")
@@ -55,6 +57,7 @@ public class UserResources {
     private UserResources parentUserResources;
 
     @OneToMany(mappedBy = "parentUserResources", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<UserResources> userResources;
 
     public UserResources() {
@@ -170,12 +173,16 @@ public class UserResources {
         this.resource = resource;
     }
 
-    public UserResources getUserResources() {
+    public UserResources getParentUserResources() {
         return parentUserResources;
     }
 
-    public void setUserResources(UserResources parentUserResources) {
+    public void setParentUserResources(UserResources parentUserResources) {
         this.parentUserResources = parentUserResources;
+    }
+
+    public List<UserResources> getUserResources() {
+        return userResources;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.blak.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -22,9 +23,11 @@ public class Document {
     private String title;
     @Column(name = "Type" , nullable = false)
     private int type;
-    @Column(name = "AddTime" , nullable = false)
+    @Column(name = "AddTime" , nullable = false, columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate addTime;
-    @Column(name = "DelTime")
+    @Column(name = "DelTime", columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate delTime;
 
 

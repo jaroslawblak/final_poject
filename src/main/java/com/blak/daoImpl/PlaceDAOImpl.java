@@ -46,7 +46,7 @@ public class PlaceDAOImpl implements PlaceDAO {
     @Override
     public List<Place> findPlaceByResource(Resource resource) {
         Session currentSession = sessionFactory.getCurrentSession();
-        org.hibernate.query.Query theQuery<Place> theQuery = currentSession.createQuery("from Place where Place.id = :id", Place.class).setParameter("id",resource.getPlaceId());
+        org.hibernate.query.Query <Place> theQuery = currentSession.createQuery("from Place where Place.id = :id", Place.class).setParameter("id",resource.getPlaceId());
         List<Place> places = ((org.hibernate.query.Query) theQuery).getResultList();
         return places;
     }
