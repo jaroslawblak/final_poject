@@ -71,4 +71,20 @@ public class ResourceCategoryDAOImpl implements ResourceCategoryDAO {
             .executeUpdate();
         }
     }
+
+    @Override
+    public void updateResourceForCategories(int id, List<Integer> resourceIds) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.createSQLQuery("DELETE FROM res2category " +
+                "WHERE categoryId =:id")
+                .setParameter("id", id)
+                .executeUpdate();
+        for (int resId:resourceIds) {
+            currentSession.createSQLQuery("INSERT INTO res2category " +
+                    "(resourceId, categoryId) VALUES (:resId, :catId)")
+                    .setParameter("resId", resId)
+                    .setParameter("catId", id)
+                    .executeUpdate();
+        }
+    }
 }

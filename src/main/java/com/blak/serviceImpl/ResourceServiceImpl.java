@@ -47,6 +47,23 @@ public class ResourceServiceImpl implements ResourceService {
         return resourceDAO.getResources();
     }
 
+    @Override
+    @Transactional
+    public List<Resource> getResourcesForCategory(int id) {
+       return resourceDAO.getResourcesForCategory(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Resource> getResourcesForPlace(int id) {
+        return resourceDAO.getResourcesForPlace(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Resource> getResourcesForUser(int id) {
+        return this.resourceDAO.getResourcesForUser(id);
+    }
 
     @Override
     @Transactional

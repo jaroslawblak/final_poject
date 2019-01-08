@@ -25,6 +25,15 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
+    public Category getCategoryByName(String name) {
+        Query query= sessionFactory.getCurrentSession().
+                createQuery("from Category where name=:name");
+        query.setParameter("name", name);
+        Category category = (Category) query.uniqueResult();
+        return category;
+    }
+
+    @Override
     public void saveCategory(Category category) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(category);

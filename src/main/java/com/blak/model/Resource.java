@@ -123,11 +123,11 @@ public class Resource {
         this.delTime = delTime;
     }
 
-    public Place getPlaceId() {
+    public Place getPlace() {
         return place;
     }
 
-    public void setPlaceId(Place placeId) {
+    public void setPlace(Place placeId) {
         this.place = placeId;
     }
 
@@ -139,10 +139,11 @@ public class Resource {
         this.externalId = externalId;
     }
 
-    public Resource getParentId() {
+    public Resource getParentResource() {
         return parentResource;
     }
-    public void setParentId(Resource parentResource) {
+
+    public void setParentResource(Resource parentResource) {
         this.parentResource = parentResource;
     }
 
@@ -154,7 +155,6 @@ public class Resource {
                 ", description='" + description + '\'' +
                 ", type=" + type +
                 ", state=" + state +
-
                 ", externalId='" + externalId + '\'' +
                 ", parentResource=" + parentResource.getId() +
                 '}';

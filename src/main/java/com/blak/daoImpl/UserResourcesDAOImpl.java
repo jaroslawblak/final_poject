@@ -2,6 +2,7 @@ package com.blak.daoImpl;
 
 import com.blak.dao.UserResourcesDAO;
 import com.blak.model.Resource;
+import com.blak.model.User;
 import com.blak.model.UserResources;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,6 +26,14 @@ public class UserResourcesDAOImpl implements UserResourcesDAO {
         Session currentSession = sessionFactory.getCurrentSession();
         UserResources userResources = currentSession.get(UserResources.class, id);
         return userResources;
+    }
+
+    @Override
+    public User getUserFromResId(int id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        User user  = currentSession.createQuery("SELECT u FROM User u, UserResources ur WHERE u.id = ur.user.id AND ur.resource.id = :id", User.class)
+                .setParameter("id", id).getSingleResult();
+        return user;
     }
 
     @Override
@@ -57,10 +66,12 @@ public class UserResourcesDAOImpl implements UserResourcesDAO {
     public List<UserResources> findUserResourcesByUserId(int userId) {
         Session currentSession = sessionFactory.getCurrentSession();
 
-        Query<UserResources> theQuery = currentSession.createQuery("select ur from UserResources ur join ur.user u where u.id = :id", UserResources.class).setParameter("id", userId);
-        List<UserResources> usersResources = ((org.hibernate.query.Query) theQuery).getResultList();
+        List<UserResources> usersResources = currentSession.createQuery("SELECT ur FROM UserResources AS ur WHERE ur.user.id = :id", UserResources.class)
+                .setParameter("id", userId).getResultList();
+        //List<UserResources> usersResources = ((org.hibernate.query.Query) theQuery).getResultList();
         LOGGER.info(String.valueOf(usersResources));
         return usersResources;
+
     }
 
     @Override

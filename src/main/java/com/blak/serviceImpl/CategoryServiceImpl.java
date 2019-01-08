@@ -28,6 +28,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
+    public Category getCategoryByName(String name) {
+        return categoryDAO.getCategoryByName(name);
+    }
+
+
+    @Override
+    @Transactional
     public void saveCategory(Category category) {
         categoryDAO.saveCategory(category);
     }
@@ -61,6 +68,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public void updateCategoriesForResource(int id, List<Integer> categoryIds) {
         resourceCategoryDAO.updateCategoriesForResource(id, categoryIds);
+    }
+
+    @Override
+    @Transactional
+    public void updateResourceForCategories(int id, List<Integer> resourceIds) {
+        resourceCategoryDAO.updateResourceForCategories(id, resourceIds);
     }
 
 

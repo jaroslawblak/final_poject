@@ -53,4 +53,27 @@ public class RestResourceController {
         }
         resourceService.deleteResource(id);
     }
+
+    @GetMapping("/categories/{id}/res")
+    public List<Resource> getResourcesForCategory(@PathVariable int id) {
+        List<Resource> resources =  resourceService.getResourcesForCategory(id);
+        if (resources.isEmpty()) {
+            //throw new UserNotFoundException("Users not found ");
+        }
+        return resources;
+    }
+
+    @GetMapping("/places/{id}/res")
+    public List<Resource> getResourcesForPlace(@PathVariable int id) {
+        List<Resource> resources =  resourceService.getResourcesForPlace(id);
+        if (resources.isEmpty()) {
+            //throw new UserNotFoundException("Users not found ");
+        }
+        return resources;
+    }
+    @GetMapping("/user/{id}/res")
+    public List<Resource> getResourcesForUser(@PathVariable int id) {
+        List<Resource> resources =  resourceService.getResourcesForUser(id);
+        return resources;
+    }
 }

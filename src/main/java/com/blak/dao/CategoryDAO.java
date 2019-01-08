@@ -7,6 +7,7 @@ import java.util.List;
 public interface CategoryDAO {
 
     public Category getCategory(int id);
+    public Category getCategoryByName(String name);
     public void saveCategory(Category category);
     public boolean deleteCategory (int id);
     public List<Category> findCategoryByResource(int id);

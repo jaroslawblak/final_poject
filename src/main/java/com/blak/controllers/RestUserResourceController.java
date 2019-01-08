@@ -1,6 +1,7 @@
 package com.blak.controllers;
 
 import com.blak.controllers.HandlersException.UserNotFoundException;
+import com.blak.model.User;
 import com.blak.model.UserResources;
 import com.blak.service.UserResourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,12 @@ public class RestUserResourceController {
     public UserResources getUserResource(@PathVariable int id) {
         UserResources userResources = userResourcesService.getUserResource(id);
         return userResources;
+    }
+
+    @GetMapping("/usersResources/res/{id}/user")
+    public User getUserFromResId(@PathVariable int id) {
+        User user = userResourcesService.getUserFromResId(id);
+        return user;
     }
 
     @GetMapping("/usersResources/user/{id}")

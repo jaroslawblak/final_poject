@@ -12,5 +12,9 @@ public interface ResourceDAO {
     public boolean deleteResource(int id);
     public List<Resource> findResourceByPlace(Place place);
     public List<Resource> getResources();
+    public List<Resource> getResourcesForCategory(int id);
+    public List<Resource> getResourcesForPlace(int id);
+    public List<Resource> getResourcesForUser(int id);
     public List<Resource> getChildResources(int id);
+    public void updateResourceForPlace(int id, List<Integer> resourceIds);
 }

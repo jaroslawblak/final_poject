@@ -15,4 +15,5 @@ public interface ResourceCategoryDAO {
     public List<ResourceCategory> getResources();
     public List<Category> getCategoriesOfResource(int id);
     public void updateCategoriesForResource(int id, List<Integer> categoryIds);
+    public void updateResourceForCategories(int id, List<Integer> resourceIds);
 }

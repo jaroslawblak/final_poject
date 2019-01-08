@@ -1,6 +1,7 @@
 package com.blak.serviceImpl;
 
 import com.blak.dao.UserResourcesDAO;
+import com.blak.model.User;
 import com.blak.model.UserResources;
 import com.blak.service.UserResourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class UserResourcesServiceImpl implements UserResourcesService {
     @Transactional
     public boolean deleteUserResource(int id) {
         return userResourcesDAO.deleteUserResource(id);
+    }
+
+    @Override
+    @Transactional
+    public User getUserFromResId(int id) {
+        return userResourcesDAO.getUserFromResId(id);
     }
 
     @Override

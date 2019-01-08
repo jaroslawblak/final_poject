@@ -1,6 +1,7 @@
 package com.blak.serviceImpl;
 
 import com.blak.dao.PlaceDAO;
+import com.blak.dao.ResourceDAO;
 import com.blak.model.Place;
 import com.blak.model.Resource;
 import com.blak.service.PlaceService;
@@ -15,6 +16,9 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Autowired
     private PlaceDAO placeDAO;
+
+    @Autowired
+    private ResourceDAO resourceDAO;
 
     @Override
     @Transactional
@@ -42,7 +46,19 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     @Transactional
+    public Place getPlaceByName(String name) {
+        return placeDAO.getPlaceByName(name);
+    }
+
+    @Override
+    @Transactional
     public List<Place> getPlaces() {
         return placeDAO.getPlaces();
+    }
+
+    @Override
+    @Transactional
+    public void updateResourceForPlace(int id, List<Integer> resourceIds) {
+        resourceDAO.updateResourceForPlace(id, resourceIds);
     }
 }

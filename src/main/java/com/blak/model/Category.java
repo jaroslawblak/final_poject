@@ -62,11 +62,11 @@ public class Category {
         this.note = note;
     }
 
-    public Category getParentId() {
+    public Category getParentCategory() {
         return parentCategory;
     }
 
-    public void setParentId(Category parentCategory) {
+    public void setParentCategory(Category parentCategory) {
         this.parentCategory = parentCategory;
     }
 

@@ -23,9 +23,19 @@ public class RestCategoryController {
         return categories;
     }
 
+
     @GetMapping("/categories/{id}")
     public Category getCategory(@PathVariable int id) {
         Category category = categoryService.getCategory(id);
+        if (category == null) {
+            //throw new UserNotFoundException("User not found - " + id);
+        }
+        return category;
+    }
+
+    @GetMapping("/categories/name/{name}")
+    public Category getCategoryByName(@PathVariable String name) {
+        Category category = categoryService.getCategoryByName(name);
         if (category == null) {
             //throw new UserNotFoundException("User not found - " + id);
         }
@@ -48,8 +58,13 @@ public class RestCategoryController {
     }
 
     @PostMapping("/categories/res/{id}")
-    public void saveCategory(@PathVariable int id, @RequestBody List<Integer> categoryIds) {
+    public void saveCategoryForResource(@PathVariable int id, @RequestBody List<Integer> categoryIds) {
         categoryService.updateCategoriesForResource(id, categoryIds);
+    }
+
+    @PostMapping("/categories/res/cat/{id}")
+    public void saveResourceForCategory(@PathVariable int id, @RequestBody List<Integer> resourceIds) {
+        categoryService.updateResourceForCategories(id, resourceIds);
     }
 
     @PutMapping("/categories")

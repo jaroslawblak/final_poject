@@ -11,7 +11,7 @@ public class Place {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
     @Column(name = "Name", nullable = false)
     private String name;
     @Column(name = "Note")
@@ -60,11 +60,11 @@ public class Place {
         this.note = note;
     }
 
-    public Place getParentId() {
+    public Place getParentPlace() {
         return parentPlace;
     }
 
-    public void setParentId(Place parentPlace) {
+    public void setParentPlace(Place parentPlace) {
         this.parentPlace = parentPlace;
     }
 

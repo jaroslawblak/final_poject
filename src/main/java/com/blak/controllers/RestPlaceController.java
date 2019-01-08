@@ -32,7 +32,19 @@ public class RestPlaceController {
         }
         return place;
     }
+    @PostMapping("/places/res/place/{id}")
+    public void saveResourceForPlace(@PathVariable int id, @RequestBody List<Integer> resourceIds) {
+        placeService.updateResourceForPlace(id, resourceIds);
+    }
 
+    @GetMapping("/places/name/{name}")
+    public Place getPlaceByName(@PathVariable String name) {
+        Place place = placeService.getPlaceByName(name);
+        if (place == null) {
+            //throw new UserNotFoundException("User not found - " + id);
+        }
+        return place;
+    }
     @PostMapping("/places")
     public void savePlace(@RequestBody Place place) {
         place.setId(0);
