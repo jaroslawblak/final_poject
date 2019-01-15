@@ -3,6 +3,7 @@ package com.blak.service;
 import com.blak.model.Place;
 import com.blak.model.Resource;
 
+import java.nio.file.Path;
 import java.util.List;
 
 public interface PlaceService {
@@ -14,5 +15,6 @@ public interface PlaceService {
     public List<Place> findPlaceByResource(Resource resource);
     public void updateResourceForPlace(int id, List<Integer> resourceIds);
     public List<Place> getPlaces();
+    public void getCsvPlace (Path path) throws Exception;
 
 }

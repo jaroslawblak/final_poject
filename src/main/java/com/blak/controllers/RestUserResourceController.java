@@ -7,6 +7,8 @@ import com.blak.service.UserResourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -26,6 +28,12 @@ public class RestUserResourceController {
     public UserResources getUserResource(@PathVariable int id) {
         UserResources userResources = userResourcesService.getUserResource(id);
         return userResources;
+    }
+
+    @GetMapping("/usersResources/csv")
+    public void getCsvUserResource() throws Exception {
+        Path p1 = Paths.get("/tmp/foo");
+        userResourcesService.getCSVUserResources(p1);
     }
 
     @GetMapping("/usersResources/res/{id}/user")

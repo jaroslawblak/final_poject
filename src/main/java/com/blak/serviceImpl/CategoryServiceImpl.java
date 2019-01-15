@@ -1,5 +1,6 @@
 package com.blak.serviceImpl;
 
+import com.blak.csvgenerator.Category.CategoryCsvWriter;
 import com.blak.dao.CategoryDAO;
 import com.blak.dao.ResourceCategoryDAO;
 import com.blak.model.Category;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @Service
@@ -18,6 +20,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private ResourceCategoryDAO resourceCategoryDAO;
+
+    @Autowired
+    private CategoryCsvWriter categoryCsvWriter;
 
 
     @Override
@@ -62,6 +67,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public List<Category> getCategoriesOfResource(int id) {
         return resourceCategoryDAO.getCategoriesOfResource(id);
+    }
+
+    @Override
+    @Transactional
+    public void getCsvCategory(Path path) throws Exception {
+            this.categoryCsvWriter.writeCsv(path);
     }
 
     @Override

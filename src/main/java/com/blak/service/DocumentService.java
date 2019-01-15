@@ -3,6 +3,7 @@ package com.blak.service;
 import com.blak.model.Document;
 import com.blak.model.Resource;
 
+import java.nio.file.Path;
 import java.util.List;
 
 public interface DocumentService {
@@ -12,4 +13,6 @@ public interface DocumentService {
     public boolean deleteDocument (int id);
     public List<Document> findDocumentByResource(Resource resource);
     public List<Document> getDocuments();
+    public void getCsvDocuments (Path path) throws Exception;
+
 }

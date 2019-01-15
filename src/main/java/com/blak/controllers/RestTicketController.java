@@ -6,12 +6,14 @@ import com.blak.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @CrossOrigin
-public class TicketRestController {
+public class RestTicketController {
 
     @Autowired
     private TicketService ticketService;
@@ -24,6 +26,12 @@ public class TicketRestController {
         }
         return tickets;
     }
+    @GetMapping("/tickets/csv")
+    public void getCsvTickets() throws Exception {
+        Path p1 = Paths.get("/tmp/foo");
+        ticketService.getCSVTicket(p1);
+    }
+
 
     @GetMapping("/ticket/{id}")
     public Ticket getTicket(@PathVariable int id) {

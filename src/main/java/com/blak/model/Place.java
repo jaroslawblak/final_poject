@@ -23,10 +23,28 @@ public class Place {
 
     @OneToMany(mappedBy = "place", fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @Transient
     private List<Resource> resources;
 
     @OneToMany(mappedBy = "parentPlace", fetch = FetchType.LAZY)
+    @Transient
     private List<Place> places;
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
+
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<Place> places) {
+        this.places = places;
+    }
 
     public Place() {
     }

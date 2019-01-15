@@ -65,7 +65,7 @@ public class ResourceDAOImpl implements ResourceDAO {
     @Override
     public List<Resource> getResourcesForCategory(int id) {
         Session currentSession = sessionFactory.getCurrentSession();
-        return  currentSession.createQuery("select res from Resource res join res.resourceCategories rc where rc.categoryId.id = :id", Resource.class)
+        return  currentSession.createQuery("select res from Resource res, ResourceCategory rc  where rc.categoryId.id = :id", Resource.class)
                 .setParameter("id",id).getResultList();
 
     }

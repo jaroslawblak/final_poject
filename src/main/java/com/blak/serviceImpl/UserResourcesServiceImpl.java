@@ -1,5 +1,6 @@
 package com.blak.serviceImpl;
 
+import com.blak.csvgenerator.UserRes.UserResCsvWriter;
 import com.blak.dao.UserResourcesDAO;
 import com.blak.model.User;
 import com.blak.model.UserResources;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @Service
@@ -15,6 +17,9 @@ public class UserResourcesServiceImpl implements UserResourcesService {
 
     @Autowired
     private UserResourcesDAO userResourcesDAO;
+
+    @Autowired
+    private UserResCsvWriter userResCsvWriter;
 
     @Override
     @Transactional
@@ -32,6 +37,12 @@ public class UserResourcesServiceImpl implements UserResourcesService {
     @Transactional
     public boolean deleteUserResource(int id) {
         return userResourcesDAO.deleteUserResource(id);
+    }
+
+    @Override
+    @Transactional
+    public void getCSVUserResources(Path path) throws Exception {
+        this.userResCsvWriter.writeCsv(path);
     }
 
     @Override

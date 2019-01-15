@@ -2,6 +2,7 @@ package com.blak.service;
 
 import com.blak.model.Ticket;
 
+import java.nio.file.Path;
 import java.util.List;
 
 public interface TicketService {
@@ -11,6 +12,7 @@ public interface TicketService {
     public boolean deleteTicket (int id);
     public List<Ticket> getTickets();
     public Ticket getTicket(int id);
+    public void getCSVTicket (Path path) throws Exception;
     public List<Ticket> getTicketsByUser(int id);
     public List<Ticket> getTicketsByOwner(int id);
     public List<Ticket> getNotActiveTicketsByOwner(int id);

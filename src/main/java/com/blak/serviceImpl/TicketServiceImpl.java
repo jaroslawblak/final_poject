@@ -1,5 +1,6 @@
 package com.blak.serviceImpl;
 
+import com.blak.csvgenerator.ticket.TicketCsvWriter;
 import com.blak.dao.TicketDAO;
 import com.blak.model.Ticket;
 import com.blak.service.TicketService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @Service
@@ -14,6 +16,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     private TicketDAO ticketDAO;
+
+    @Autowired
+    private TicketCsvWriter ticketCsvWriter;
 
     @Override
     @Transactional
@@ -53,6 +58,12 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional
+    public void getCSVTicket(Path path) throws Exception {
+        this.ticketCsvWriter.writeCsv(path);
+    }
+
+    @Override
+    @Transactional
     public List<Ticket> getTicketsByUser(int id) {
         return ticketDAO.getTicketsByUser(id);
     }
@@ -73,9 +84,7 @@ public class TicketServiceImpl implements TicketService {
     @Transactional
     public List<Ticket> getNotActiveTicketsByUser(int id) {
         return ticketDAO.getNotActiveTicketsByUser(id);
-
     }
-
 
     @Override
     @Transactional

@@ -5,6 +5,8 @@ import com.blak.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -61,6 +63,12 @@ public class RestResourceController {
             //throw new UserNotFoundException("Users not found ");
         }
         return resources;
+    }
+
+    @GetMapping("/resources/csv")
+    public void getCSVResource() throws Exception {
+        Path p1 = Paths.get("/tmp/foo");
+        resourceService.getCsvResource(p1);
     }
 
     @GetMapping("/places/{id}/res")

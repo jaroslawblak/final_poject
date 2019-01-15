@@ -5,6 +5,8 @@ import com.blak.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -22,6 +24,13 @@ public class RestCategoryController {
         }
         return categories;
     }
+
+    @GetMapping("/categories/csv")
+    public void getCsvCategories() throws Exception{
+        Path p1 = Paths.get("/tmp/foo");
+        categoryService.getCsvCategory(p1);
+    }
+
 
 
     @GetMapping("/categories/{id}")

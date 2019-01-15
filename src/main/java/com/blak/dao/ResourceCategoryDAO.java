@@ -8,6 +8,7 @@ import java.util.List;
 public interface ResourceCategoryDAO {
 
     public ResourceCategory getResourceCategory(int id);
+    public List<ResourceCategory> getResourceCategories();
     public void saveResourceCategory(ResourceCategory resourceCategory);
     public boolean deleteResourceCategory(int id);
     public List<ResourceCategory> findCategoriesByResource(int id);

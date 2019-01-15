@@ -5,6 +5,8 @@ import com.blak.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -45,5 +47,11 @@ public class RestDocumentController {
             //throw new UserNotFoundException("User not found - " + id);
         }
         documentService.deleteDocument(id);
+    }
+
+    @GetMapping("/documents/csv")
+    public void getCSVUsers() throws Exception {
+        Path p1 = Paths.get("/tmp/foo");
+        documentService.getCsvDocuments(p1);
     }
 }

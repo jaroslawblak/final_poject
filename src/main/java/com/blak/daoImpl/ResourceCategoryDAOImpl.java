@@ -2,6 +2,7 @@ package com.blak.daoImpl;
 
 import com.blak.dao.ResourceCategoryDAO;
 import com.blak.model.Category;
+import com.blak.model.Place;
 import com.blak.model.ResourceCategory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,6 +20,14 @@ public class ResourceCategoryDAOImpl implements ResourceCategoryDAO {
     @Override
     public ResourceCategory getResourceCategory(int id) {
         return null;
+    }
+
+    @Override
+    public List<ResourceCategory> getResourceCategories() {
+        Session currentSession = sessionFactory.getCurrentSession();
+        org.hibernate.query.Query<ResourceCategory> theQuery = currentSession.createQuery("from ResourceCategory ", ResourceCategory.class);
+        List<ResourceCategory> resourceCategories = ((org.hibernate.query.Query) theQuery).getResultList();
+        return resourceCategories;
     }
 
     @Override

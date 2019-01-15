@@ -1,8 +1,6 @@
 package com.blak.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,7 +8,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "document")
-@JsonIdentityInfo(scope = Document.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Document {
 
     @Id
@@ -30,8 +27,7 @@ public class Document {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate delTime;
 
-
-    @ManyToOne (cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "ResourceID",nullable = false)
     private Resource resourceId;
 
@@ -112,7 +108,6 @@ public class Document {
                 ", type=" + type +
                 ", addTime=" + addTime +
                 ", delTime=" + delTime +
-                ", resourceId=" + resourceId +
                 '}';
     }
 }

@@ -47,6 +47,7 @@ public class User {
     private User parentUser;
 
     @OneToMany(mappedBy = "parentUser",fetch = FetchType.LAZY)
+    @Transient
     private List<User> users;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -181,6 +182,13 @@ public class User {
         this.userResources = userResources;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
     @Override
     public String toString() {

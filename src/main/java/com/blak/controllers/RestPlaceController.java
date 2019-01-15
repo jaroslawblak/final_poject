@@ -6,6 +6,8 @@ import com.blak.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -49,6 +51,12 @@ public class RestPlaceController {
     public void savePlace(@RequestBody Place place) {
         place.setId(0);
         placeService.savePlace(place);
+    }
+
+    @GetMapping("/places/csv")
+    public void getCSVPlaces() throws Exception {
+        Path p1 = Paths.get("/tmp/foo");
+        placeService.getCsvPlace(p1);
     }
 
     @PutMapping("/places")

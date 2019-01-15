@@ -8,6 +8,8 @@ import com.blak.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -17,6 +19,7 @@ public class RestUserController {
 
     @Autowired
     private UserService userService;
+
 
     @GetMapping("/users")
     public List<User> getUsers() {
@@ -36,14 +39,14 @@ public class RestUserController {
         return user;
     }
 
-//    @GetMapping("/users/{id}")
-//    public User getUserByName(@PathVariable String name) {
-//        User user = userService.getUser(id);
-//        if (user == null) {
-//            throw new UserNotFoundException("User not found - " + id);
-//        }
-//        return user;
-//    }
+    @GetMapping("/users/csv")
+    public void getCSVUsers() throws Exception {
+        Path p1 = Paths.get("/tmp/foo");
+        userService.getCSVUsers(p1);
+    }
+
+
+
 
     @PostMapping("/users")
     public void saveUser(@RequestBody User user) {

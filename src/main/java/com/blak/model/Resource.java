@@ -39,23 +39,30 @@ public class Resource {
     @JoinColumn(name = "ParentID")
     private Resource parentResource;
 
+    @OneToMany(mappedBy = "parentResource", fetch = FetchType.LAZY)
+    @Transient
+    private List<Resource> resources;
+
     @OneToMany(mappedBy = "resourceId", fetch = FetchType.LAZY)
+    @Transient
     private List<Document> documents;
 
     @OneToMany(mappedBy = "resource", fetch = FetchType.LAZY)
+    @Transient
     private List<UserResources> userResources;
 
     @OneToMany(mappedBy = "resourceId", fetch = FetchType.LAZY)
+    @Transient
     private List<ResourceCategory> resourceCategories;
 
     @OneToMany(mappedBy = "childResourceOfResource", fetch = FetchType.LAZY)
+    @Transient
     private List<ResourceOfResource> childResourceOfResource;
 
     @OneToMany(mappedBy = "parentResourceOfResource", fetch = FetchType.LAZY)
+    @Transient
     private List<ResourceOfResource> parentResourceOfResource;
 
-    @OneToMany(mappedBy = "parentResource", fetch = FetchType.LAZY)
-    private List<Resource> resources;
 
     public Resource() {
     }
@@ -145,6 +152,54 @@ public class Resource {
 
     public void setParentResource(Resource parentResource) {
         this.parentResource = parentResource;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
+    }
+
+    public List<UserResources> getUserResources() {
+        return userResources;
+    }
+
+    public void setUserResources(List<UserResources> userResources) {
+        this.userResources = userResources;
+    }
+
+    public List<ResourceCategory> getResourceCategories() {
+        return resourceCategories;
+    }
+
+    public void setResourceCategories(List<ResourceCategory> resourceCategories) {
+        this.resourceCategories = resourceCategories;
+    }
+
+    public List<ResourceOfResource> getChildResourceOfResource() {
+        return childResourceOfResource;
+    }
+
+    public void setChildResourceOfResource(List<ResourceOfResource> childResourceOfResource) {
+        this.childResourceOfResource = childResourceOfResource;
+    }
+
+    public List<ResourceOfResource> getParentResourceOfResource() {
+        return parentResourceOfResource;
+    }
+
+    public void setParentResourceOfResource(List<ResourceOfResource> parentResourceOfResource) {
+        this.parentResourceOfResource = parentResourceOfResource;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 
     @Override

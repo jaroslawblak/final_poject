@@ -23,9 +23,9 @@ public class Ticket {
     @Column(name = "tel", nullable = false)
     private String tel;
     @Column(name = "type")
-    private boolean type;
+    private Boolean type;
     @Column(name = "active")
-    private boolean active;
+    private Boolean active;
     @Column(name = "addTime", columnDefinition = "DATE")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate addTime;
@@ -91,19 +91,19 @@ public class Ticket {
         this.tel = tel;
     }
 
-    public boolean isType() {
+    public Boolean getType() {
         return type;
     }
 
-    public void setType(boolean type) {
+    public void setType(Boolean type) {
         this.type = type;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
