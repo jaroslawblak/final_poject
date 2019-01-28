@@ -6,6 +6,7 @@ import com.blak.model.Document;
 import com.blak.model.Resource;
 import com.blak.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,11 +31,21 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     @Transactional
+    public Document getDocumentByResourceId(int id) {
+        return documentDAO.getDocumentByResourceId(id);
+    }
+
+    @Override
+    @Transactional
     public void saveDocument(Document document) {
         documentDAO.saveDocument(document);
 
     }
 
+    public ClassPathResource getFileForDocument(String path) {
+       ClassPathResource pdfFile = new ClassPathResource(path);
+        return pdfFile;
+    }
     @Override
     @Transactional
     public boolean deleteDocument(int id) {

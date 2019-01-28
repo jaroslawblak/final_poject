@@ -25,6 +25,16 @@ public class DocumentDAOImpl implements DocumentDAO {
     }
 
     @Override
+    public Document getDocumentByResourceId(int id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Document> theQuery = currentSession.createQuery(
+                "from Document where resourceId.id = :id", Document.class)
+                .setParameter("id", id);
+        Document document = theQuery.getSingleResult();
+        return document;
+    }
+
+    @Override
     public void saveDocument(Document document) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(document);
@@ -57,4 +67,5 @@ public class DocumentDAOImpl implements DocumentDAO {
         List<Document> documents = ((org.hibernate.query.Query) theQuery).getResultList();
         return documents;
     }
+
 }

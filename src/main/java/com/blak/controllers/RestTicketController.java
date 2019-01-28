@@ -18,7 +18,7 @@ public class RestTicketController {
     @Autowired
     private TicketService ticketService;
 
-    @GetMapping("/ticket")
+    @GetMapping("/tickets")
     public List<Ticket> getTickets() {
         List<Ticket> tickets = ticketService.getTickets();
         if (tickets.isEmpty()) {

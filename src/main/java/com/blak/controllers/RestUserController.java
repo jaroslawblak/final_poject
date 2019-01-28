@@ -26,6 +26,10 @@ public class RestUserController {
         List<User> users = userService.getUsers();
         if (users.isEmpty()) {
             throw new UserNotFoundException("Users not found ");
+        } else {
+            for (User user: users) {
+                user.setPassword(null);
+            }
         }
         return users;
     }
@@ -35,6 +39,19 @@ public class RestUserController {
         User user = userService.getUser(id);
         if (user == null) {
             throw new UserNotFoundException("User not found - " + id);
+        } else {
+            user.setPassword(null);
+        }
+        return user;
+    }
+
+    @GetMapping("/users/email")
+    public User getUserByEmail(@RequestParam String email) {
+        User user = userService.getUser(email);
+        if (user == null) {
+            throw new UserNotFoundException("User not found - " + email);
+        } else {
+            user.setPassword(null);
         }
         return user;
     }

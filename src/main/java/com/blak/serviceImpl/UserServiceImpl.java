@@ -5,6 +5,7 @@ import com.blak.dao.UserDAO;
 import com.blak.model.User;
 import com.blak.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,9 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDao;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserCsvWriter UserCsvWriter;
 
     @Override
@@ -26,10 +30,10 @@ public class UserServiceImpl implements UserService {
         return userDao.getUser(id);
     }
 
-
     @Override
     @Transactional
     public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.saveUser(user);
     }
 

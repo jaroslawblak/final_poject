@@ -12,4 +12,5 @@ public interface DocumentDAO {
     public boolean deleteDocument (int id);
     public List<Document> findDocumentByResource(Resource resource);
     public List<Document> getDocuments();
+    public Document getDocumentByResourceId(int id);
 }

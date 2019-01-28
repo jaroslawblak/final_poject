@@ -26,6 +26,8 @@ public class Document {
     @Column(name = "DelTime", columnDefinition = "DATE")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate delTime;
+    @Column(name = "pathToFile")
+    private String path;
 
     @ManyToOne
     @JoinColumn(name = "ResourceID",nullable = false)
@@ -34,12 +36,12 @@ public class Document {
     public Document() {
     }
 
-    public Document(String fileName, String title, int type, LocalDate addTime, Resource resourceId) {
-        this.fileName = fileName;
-        this.title = title;
-        this.type = type;
-        this.addTime = addTime;
-        this.resourceId = resourceId;
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public int getId() {
@@ -108,6 +110,8 @@ public class Document {
                 ", type=" + type +
                 ", addTime=" + addTime +
                 ", delTime=" + delTime +
+                ", path='" + path + '\'' +
+                ", resourceId=" + resourceId +
                 '}';
     }
 }
